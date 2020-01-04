@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 引入外部的java配置文件（properties文件） -->
+    <!-- property子标签执行顺序会早于 resource属性的解析 -->
+    <properties resource="db.properties">
+        <!-- <property name="db.username" value="123"/> -->
+        <property name="username" value="123"/>
+    </properties>
+
+    <settings>
+        <!--一级缓存默认开启-->
+        <!--二级缓存-->
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+    <!--<settings>-->
+    <!--延迟加载总开关,默认false-->
+    <!--<setting name="lazyLoadingEnabled" value="false"/>-->
+
+    <!--侵入式延迟加载开关-->
+    <!--<setting name="lazyLoadingEnabled" value="true"/>-->
+    <!--<setting name="aggressiveLazyLoading" value="true"/>-->
+
+    <!--深度延迟加载-->
+    <!--<setting name="lazyLoadingEnabled" value="true"/>-->
+    <!--<setting name="aggressiveLazyLoading" value="false"/>-->
+
+    <!--</settings>-->
+
+    <!--pagehelper-->
+    <!--<plugins>-->
+        <!--<plugin interceptor="com.github.pagehelper.PageInterceptor">-->
+            <!--&lt;!&ndash; config params as the following &ndash;&gt;-->
+            <!--<property name="helperDialect" value="mysql"/>-->
+        <!--</plugin>-->
+    <!--</plugins>-->
+
+    <!-- 自定义别名 -->
+    <typeAliases>
+        <!-- 批量别名设置,指定需要别名设置的po类的包名。默认别名就是类名（大小写都可以） -->
+        <package name="com.wusd.mybatis.entity.po"/>
+        <!-- 单个别名设置 -->
+        <!-- <typeAlias type="com.kkb.mybatis.po.User" alias="user"/> -->
+    </typeAliases>
+    <!-- 数据源连接，实际项目中会交给spring进行管理 -->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${db.driver}"/>
+                <property name="url" value="${db.url}"/>
+                <property name="username" value="${db.username}"/>
+                <!-- <property name="username" value="${username}" /> -->
+                <property name="password" value="${db.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!-- 加载映射文件 -->
+    <mappers>
+        <mapper resource="mapper/OrderMapper.xml"/>
+        <mapper resource="mapper/UserMapper.xml"/>
+        <mapper resource="mapper/gen/UserMapper.xml"/>
+        <!-- <mapper class="com.kkb.mybatis.mapper.UserMapper"/> -->
+        <!-- <mapper url="file://d:/sqlmap/User.xml"/> -->
+
+        <!-- 批量加载 -->
+        <!--<package name="com.wusd.mybatis.mapper" />-->
+        <!--<package name="mapper"/>-->
+    </mappers>
+</configuration>

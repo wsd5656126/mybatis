@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wusd.mybatis.mapper.OrderMapper">
+    <resultMap id="orderResultMap" type="Order">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="order_no" property="orderNo"/>
+        <result column="order_status" property="orderStatus"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+    <resultMap id="orderDetailResultMap" type="com.wusd.mybatis.entity.OrderDetail">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="order_no" property="orderNo"/>
+        <result column="order_status" property="orderStatus"/>
+        <result column="create_time" property="createTime"/>
+        <association property="user" javaType="User">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+        </association>
+    </resultMap>
+    <insert id="insert" parameterType="Order">
+        insert into `order`(id, user_id, order_no, order_name, order_status)
+        VALUES (#{id}, #{userId}, #{orderNo}, #{orderName}, #{orderStatus})
+    </insert>
+    <select id="selectById" parameterType="java.lang.Integer" resultMap="orderResultMap">
+        select * from `order` where id=#{id}
+    </select>
+    <select id="selectDetailById" parameterType="java.lang.Integer" resultMap="orderDetailResultMap">
+        select o.*, u.name
+        from `order` o
+        left join user u on o.user_id = u.id
+        where o.id = #{id}
+    </select>
+</mapper>

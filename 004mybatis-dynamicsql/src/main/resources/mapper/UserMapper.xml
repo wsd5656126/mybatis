@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wusd.mybatis.mapper.UserMapper">
+    <resultMap id="userResultMap" type="User">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+    </resultMap>
+    <!--<resultMap id="userDetailResultMap" type="com.wusd.mybatis.entity.UserDetail">-->
+        <!--<id column="id" property="id"/>-->
+        <!--<result column="name" property="name"/>-->
+        <!--<collection property="orders" ofType="Order">-->
+            <!--<id column="order_id" property="id"/>-->
+            <!--<result column="user_id" property="userId"/>-->
+            <!--<result column="order_no" property="orderNo"/>-->
+            <!--<result column="order_name" property="orderName"/>-->
+            <!--<result column="order_status" property="orderStatus"/>-->
+            <!--<result column="create_time" property="createTime"/>-->
+        <!--</collection>-->
+    <!--</resultMap>-->
+    <insert id="insert" parameterType="User">
+        insert into `user`(id, `name`) values(#{id},#{name})
+    </insert>
+    <select id="selectById" parameterType="java.lang.Integer" resultMap="userResultMap">
+        select * from `user` where id=#{id}
+    </select>
+    <!--<select id="selectDetailById" parameterType="java.lang.Integer" resultMap="userDetailResultMap">-->
+        <!--select u.*, o.id order_id, o.user_id, o.order_no, order_name, order_status, create_time-->
+        <!--from user u-->
+        <!--left join `order` o on u.id = o.user_id-->
+        <!--where u.id=#{id}-->
+    <!--</select>-->
+</mapper>
